@@ -17,8 +17,8 @@
   </div>
   <% end %>
   <div class="field">
-    <%= f.label :user_id %><br />
-    <%= f.collection_select :user_id, User.all, :id, :name %>
+    <%= f.label :person_id %><br />
+    <%= f.collection_select :person_id, Person.all, :id, :name %>
   </div>
   <div class="field">
     <%= f.label :department_id %><br />

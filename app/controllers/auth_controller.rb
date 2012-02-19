@@ -1,10 +1,10 @@
 class AuthController < ApplicationController
   def login
-    session[:login_id]=nil
+    session[:user_id]=nil
     if request.post?
-      login = Login.authenticate(params[:name],params[:password])
-      if login
-        session[:login_id]=login.id
+      user = User.authenticate(params[:name],params[:password])
+      if user
+        session[:user_id]=user.id
         uri = session[:original_uri]
         session[:original_uri] = nil
         redirect_to (uri || :root)
@@ -15,7 +15,7 @@ class AuthController < ApplicationController
   end
 
   def logout
-    session[:login_id]=nil
+    session[:user_id]=nil
     flash[:notice] = "Logged out"
     redirect_to :login
   end

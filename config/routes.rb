@@ -5,13 +5,13 @@ Mahatma::Application.routes.draw do
   match "/login" => "auth#login"
   match "/logout" => "auth#logout"
 
-  resources :logins
+  resources :users
 
   resources :departments
 
   resources :ips
 
-  resources :users
+  resources :persons
 
   resources :buildings
 

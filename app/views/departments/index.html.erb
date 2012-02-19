@@ -3,7 +3,7 @@
 <table>
   <tr>
     <th>Name</th>
-    <th>User</th>
+    <th>Person</th>
     <th>Parent</th>
     <th></th>
     <th></th>
@@ -13,7 +13,7 @@
 <% @departments.each do |department| %>
   <tr>
     <td><%= department.name %></td>
-    <td><%= department.user.name %></td>
+    <td><%= department.person.name %></td>
     <td><%= department.parent.name if department.parent %></td>
     <td><%= link_to 'Show', department %></td>
     <td><%= link_to 'Edit', edit_department_path(department) %></td>

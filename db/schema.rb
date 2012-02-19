@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120210103617) do
+ActiveRecord::Schema.define(:version => 20120219151222) do
 
   create_table "buildings", :force => true do |t|
     t.string   "name",       :limit => 30, :default => "", :null => false
@@ -39,19 +39,19 @@ ActiveRecord::Schema.define(:version => 20120210103617) do
     t.boolean  "free"
   end
 
-  create_table "logins", :force => true do |t|
+  create_table "persons", :force => true do |t|
     t.string   "name"
-    t.string   "hashed_password"
-    t.string   "salt"
-    t.boolean  "admin"
+    t.string   "email"
+    t.string   "phone"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "users", :force => true do |t|
     t.string   "name"
-    t.string   "email"
-    t.string   "phone"
+    t.string   "hashed_password"
+    t.string   "salt"
+    t.boolean  "admin"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
