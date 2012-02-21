@@ -17,9 +17,9 @@
 <% @ips.each do |ip| %>
   <tr>
     <td><%= ip.ip %></td>
-    <td><%= ip.person.name if ip.person? %></td>
-    <td><%= ip.building.name if ip.building? %></td>
-	<td><%= ip.department.name if ip.department? %></td>
+    <td><%= ip.person.name if ip.person %></td>
+    <td><%= ip.building.name if ip.building %></td>
+	<td><%= ip.department.name if ip.department %></td>
     <td><%= ip.room %></td>
 	<td><%= ip.free %></td>
     <td><%= ip.comment %></td>

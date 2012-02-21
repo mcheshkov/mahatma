@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120219151222) do
+ActiveRecord::Schema.define(:version => 20120221100114) do
 
   create_table "buildings", :force => true do |t|
     t.string   "name",       :limit => 30, :default => "", :null => false
@@ -22,14 +22,22 @@ ActiveRecord::Schema.define(:version => 20120219151222) do
 
   create_table "departments", :force => true do |t|
     t.string   "name"
-    t.integer  "user_id"
+    t.integer  "person_id"
     t.integer  "parent_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
+  create_table "inbound", :force => true do |t|
+    t.integer  "ip",    :null => false
+    t.datetime "ts",    :null => false
+    t.integer  "bytes", :null => false
+  end
+
+  add_index "inbound", ["ts", "ip"], :name => "idx_ip_ts", :unique => true
+
   create_table "ips", :primary_key => "ip", :force => true do |t|
-    t.integer  "user_id"
+    t.integer  "person_id"
     t.integer  "building_id"
     t.string   "room"
     t.string   "comment"

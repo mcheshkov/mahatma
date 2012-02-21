@@ -4,4 +4,5 @@ class Department < ActiveRecord::Base
   validates_associated :person, :parent
   belongs_to :parent, :class_name => "Department"
   belongs_to :person
+  has_many :ips
 end
