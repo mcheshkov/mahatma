@@ -13,7 +13,7 @@
 <% @departments.each do |department| %>
   <tr>
     <td><%= department.name %></td>
-    <td><%= department.person.name %></td>
+    <td><%= department.person.name if department.person %></td>
     <td><%= department.parent.name if department.parent %></td>
     <td><%= link_to 'Show', department %></td>
     <td><%= link_to 'Edit', edit_department_path(department) %></td>
