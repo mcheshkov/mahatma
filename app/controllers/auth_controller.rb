@@ -2,7 +2,7 @@ class AuthController < ApplicationController
   def login
     session[:user_id]=nil
     if request.post?
-      user = User.authenticate(params[:name],params[:password])
+      user = User.find_by_name(params[:name]).authenticate(params[:password])
       if user
         session[:user_id]=user.id
         uri = session[:original_uri]

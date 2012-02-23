@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120221100114) do
+ActiveRecord::Schema.define(:version => 20120223054338) do
 
   create_table "buildings", :force => true do |t|
     t.string   "name",       :limit => 30, :default => "", :null => false
@@ -47,6 +47,14 @@ ActiveRecord::Schema.define(:version => 20120221100114) do
     t.boolean  "free"
   end
 
+  create_table "outbound", :force => true do |t|
+    t.integer  "ip",    :null => false
+    t.datetime "ts",    :null => false
+    t.integer  "bytes", :null => false
+  end
+
+  add_index "outbound", ["ts", "ip"], :name => "idx_ip_ts", :unique => true
+
   create_table "persons", :force => true do |t|
     t.string   "name"
     t.string   "email"
@@ -57,8 +65,7 @@ ActiveRecord::Schema.define(:version => 20120221100114) do
 
   create_table "users", :force => true do |t|
     t.string   "name"
-    t.string   "hashed_password"
-    t.string   "salt"
+    t.string   "password_digest"
     t.boolean  "admin"
     t.datetime "created_at"
     t.datetime "updated_at"

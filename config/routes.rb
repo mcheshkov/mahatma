@@ -5,6 +5,8 @@ Mahatma::Application.routes.draw do
   match "/login" => "auth#login"
   match "/logout" => "auth#logout"
 
+  match "stats(/:from_date/:to_date)" => "stats#show"
+
   resources :users
 
   resources :departments
