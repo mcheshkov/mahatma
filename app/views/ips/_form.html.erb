@@ -13,12 +13,12 @@
   <% if action_name == "new" %>
   <div class="field">
     <%= f.label :ip %><br />
-    <%= f.text_field :ip %>
+    <%= f.text_field :ip_as_string %>
   </div>
   <% end %>
   <div class="field">
     <%= f.label :person_id %><br />
-    <%= f.collection_select :person_id, Person.all, :id, :name %>
+    <%= f.collection_select :person_id, Person.all, :id, :name, :include_blank => true %>
   </div>
   <div class="field">
     <%= f.label :department_id %><br />
