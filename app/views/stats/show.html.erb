@@ -4,7 +4,9 @@
   <tr>
 	<td>Department</td>
 	<td>Inbound</td>
+	<td>Inbound, with subdepartments</td>
 	<td>Outbound</td>
+	<td>Outbound, with subdepartments</td>
   </tr>
 <%
    @departments.each do |d|
@@ -12,7 +14,9 @@
   <tr>
 	<td><%= d.name %></td>
 	<td><%= number_to_human_size((@inbounds_by_id[d.id] || 0).truncate) %></td>
+	<td><%= number_to_human_size((@total_inbounds_by_id[d.id] || 0).truncate) %></td>
 	<td><%= number_to_human_size((@outbounds_by_id[d.id] || 0).truncate) %></td>
+	<td><%= number_to_human_size((@total_outbounds_by_id[d.id] || 0).truncate) %></td>
   </tr>
 <%
    end

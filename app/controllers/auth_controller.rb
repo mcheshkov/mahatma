@@ -15,7 +15,7 @@ class AuthController < ApplicationController
   end
 
   def logout
-    session[:user_id]=nil
+    reset_session
     flash[:notice] = "Logged out"
     redirect_to :login
   end
