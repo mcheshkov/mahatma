@@ -9,16 +9,21 @@ class Department < ActiveRecord::Base
   has_many :inbounds, :through => :ips
   has_many :outbounds, :through => :ips
 
+  @@all_in_traffic = {}
+  @@all_out_traffic = {}
+
   def in_traffic(from_date,to_date)
-    inbounds.where("ts >= ? AND ts < ?",from_date,to_date).sum(:bytes)
+    daily_in_traffic(from_date,to_date) + night_in_traffic(from_date,to_date)
   end
 
   def daily_in_traffic(from_date,to_date)
-    inbounds.where("ts >= ? AND ts < ?",from_date,to_date).where("(HOUR(ts) >= 8 AND HOUR(ts) < 20)").sum(:bytes)
+    @@all_in_traffic[ [from_date,to_date] ] ||= get_all_in_traffic(from_date,to_date)
+    @@all_in_traffic[ [from_date,to_date] ][ [id,1] ] || 0
   end
 
   def night_in_traffic(from_date,to_date)
-    inbounds.where("ts >= ? AND ts < ?",from_date,to_date).where("NOT (HOUR(ts) >= 8 AND HOUR(ts) < 20)").sum(:bytes)
+    @@all_in_traffic[ [from_date,to_date] ] ||= get_all_in_traffic(from_date,to_date)
+    @@all_in_traffic[ [from_date,to_date] ][ [id,0] ] || 0
   end
 
   def total_in_traffic(from_date,to_date)
@@ -48,15 +53,17 @@ class Department < ActiveRecord::Base
 
 
   def out_traffic(from_date,to_date)
-    outbounds.where("ts >= ? AND ts < ?",from_date,to_date).sum(:bytes)
+    daily_out_traffic(from_date,to_date) + night_out_traffic(from_date,to_date)
   end
 
   def daily_out_traffic(from_date,to_date)
-    outbounds.where("ts >= ? AND ts < ?",from_date,to_date).where("(HOUR(ts) >= 8 AND HOUR(ts) < 20)").sum(:bytes)
+    @@all_out_traffic[ [from_date,to_date] ] ||= get_all_out_traffic(from_date,to_date)
+    @@all_out_traffic[ [from_date,to_date] ][ [id,1] ] || 0
   end
 
   def night_out_traffic(from_date,to_date)
-    outbounds.where("ts >= ? AND ts < ?",from_date,to_date).where("NOT (HOUR(ts) >= 8 AND HOUR(ts) < 20)").sum(:bytes)
+    @@all_out_traffic[ [from_date,to_date] ] ||= get_all_out_traffic(from_date,to_date)
+    @@all_out_traffic[ [from_date,to_date] ][ [id,0] ] || 0
   end
 
   def total_out_traffic(from_date,to_date)
@@ -83,4 +90,12 @@ class Department < ActiveRecord::Base
     res
   end
 
+  private
+  def get_all_in_traffic(from_date,to_date)
+    Ip.joins(:inbounds).where("ts >= ? AND ts < ?",from_date,to_date).group(:department_id,"(HOUR(ts)>=8 AND HOUR(ts)<20)").sum(:bytes)
+  end
+
+  def get_all_out_traffic(from_date,to_date)
+    Ip.joins(:outbounds).where("ts >= ? AND ts < ?",from_date,to_date).group(:department_id,"(HOUR(ts)>=8 AND HOUR(ts)<20)").sum(:bytes)
+  end
 end
