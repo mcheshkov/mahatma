@@ -15,12 +15,12 @@
 %>
   <tr>
 	<td><%= d.name %></td>
-	<td><%= number_to_human_size(d.total_daily_in_traffic) %></td>
-	<td><%= number_to_human_size(d.total_night_in_traffic) %></td>
-	<td><%= number_to_human_size(d.total_in_traffic) %></td>
-	<td><%= number_to_human_size(d.total_daily_out_traffic) %></td>
-	<td><%= number_to_human_size(d.total_night_out_traffic) %></td>
-	<td><%= number_to_human_size(d.total_out_traffic) %></td>
+	<td><%= number_to_human_size(d.total_daily_in_traffic(@from_date,@to_date)) %></td>
+	<td><%= number_to_human_size(d.total_night_in_traffic(@from_date,@to_date)) %></td>
+	<td><%= number_to_human_size(d.total_in_traffic(@from_date,@to_date)) %></td>
+	<td><%= number_to_human_size(d.total_daily_out_traffic(@from_date,@to_date)) %></td>
+	<td><%= number_to_human_size(d.total_night_out_traffic(@from_date,@to_date)) %></td>
+	<td><%= number_to_human_size(d.total_out_traffic(@from_date,@to_date)) %></td>
   </tr>
 <%
    end

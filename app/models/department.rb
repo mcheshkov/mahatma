@@ -7,6 +7,7 @@ class Department < ActiveRecord::Base
   belongs_to :person
   has_many :ips
   has_many :inbounds, :through => :ips
+  has_many :outbounds, :through => :ips
 
   def in_traffic(from_date,to_date)
     inbounds.where("ts >= ? AND ts < ?",from_date,to_date).sum(:bytes)
