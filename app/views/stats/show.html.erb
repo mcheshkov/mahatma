@@ -3,20 +3,24 @@
 <table>
   <tr>
 	<td>Department</td>
-	<td>Inbound</td>
-	<td>Inbound, with subdepartments</td>
-	<td>Outbound</td>
-	<td>Outbound, with subdepartments</td>
+	<td>Inbound, daily</td>
+	<td>Inbound, night</td>
+	<td>Inbound, total</td>
+	<td>Outbound, daily</td>
+	<td>Outbound, night</td>
+	<td>Outbound, total</td>
   </tr>
 <%
    @departments.each do |d|
 %>
   <tr>
 	<td><%= d.name %></td>
-	<td><%= number_to_human_size((@inbounds_by_id[d.id] || 0).truncate) %></td>
-	<td><%= number_to_human_size((@total_inbounds_by_id[d.id] || 0).truncate) %></td>
-	<td><%= number_to_human_size((@outbounds_by_id[d.id] || 0).truncate) %></td>
-	<td><%= number_to_human_size((@total_outbounds_by_id[d.id] || 0).truncate) %></td>
+	<td><%= number_to_human_size(d.total_daily_in_traffic) %></td>
+	<td><%= number_to_human_size(d.total_night_in_traffic) %></td>
+	<td><%= number_to_human_size(d.total_in_traffic) %></td>
+	<td><%= number_to_human_size(d.total_daily_out_traffic) %></td>
+	<td><%= number_to_human_size(d.total_night_out_traffic) %></td>
+	<td><%= number_to_human_size(d.total_out_traffic) %></td>
   </tr>
 <%
    end
