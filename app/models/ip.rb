@@ -16,7 +16,29 @@ class Ip < ActiveRecord::Base
     self.ip = str2ip(str) if new_record?
   end
 
+  def traffic(dir,type,from_date,to_date)
+    @@all_traffic ||= get_all_traffic(from_date,to_date)
+    @@all_traffic[ [id,dir,type] ] || 0
+  end
+
   private
+
+  def get_all_traffic(from_date,to_date)
+    res = {}
+
+    t = Inbound.where("ts >= ? AND ts < ?",from_date,to_date).group("inbound.ip","(HOUR(ts)>=8 AND HOUR(ts)<20)").sum(:bytes)
+    t.each do |k,v|
+      res[ [k[0], :in, k[1]==1 ? :day : :night] ] = v
+    end
+
+    t = Outbound.where("ts >= ? AND ts < ?",from_date,to_date).group("outbound.ip","(HOUR(ts)>=8 AND HOUR(ts)<20)").sum(:bytes)
+    t.each do |k,v|
+      res[ [k[0], :out, k[1]==1 ? :day : :night] ] = v
+    end
+
+    res
+  end
+
   def ip2str(ip)
     return if !ip
     o4=ip % (1 << 8)

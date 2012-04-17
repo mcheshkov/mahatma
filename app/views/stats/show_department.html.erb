@@ -1,0 +1,31 @@
+<h1>Stats#show_department</h1>
+<p>Find me in app/views/stats/show_department.html.erb</p>
+<table>
+  <tr>
+	<td>IP</td>
+	<td>Inbound, daily</td>
+	<td>Inbound, night</td>
+	<td>Inbound, total</td>
+	<td>Outbound, daily</td>
+	<td>Outbound, night</td>
+	<td>Outbound, total</td>
+  </tr>
+  <tr>
+    <td><%= @department.name %></td>
+  </tr>
+<%
+   @department.ips.each do |ip|
+%>
+  <tr>
+	<td><%= ip.ip_as_string %></td>
+	<td><%= number_to_human_size(ip.traffic(:in,:day,@from_date,@to_date)) %></td>
+	<td><%= number_to_human_size(ip.traffic(:in,:night,@from_date,@to_date)) %></td>
+	<td><%= number_to_human_size(ip.traffic(:in,:day,@from_date,@to_date) + ip.traffic(:in,:night,@from_date,@to_date)) %></td>
+	<td><%= number_to_human_size(ip.traffic(:out,:day,@from_date,@to_date)) %></td>
+	<td><%= number_to_human_size(ip.traffic(:out,:night,@from_date,@to_date)) %></td>
+	<td><%= number_to_human_size(ip.traffic(:out,:day,@from_date,@to_date) + ip.traffic(:out,:night,@from_date,@to_date)) %></td>
+  </tr>
+<%
+   end
+%>
+</table>
