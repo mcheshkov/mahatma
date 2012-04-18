@@ -15,12 +15,12 @@
 %>
   <tr>
 	<td><%= d.name %></td>
-	<td><%= number_to_human_size(d.traffic(:in,:day,@from_date,@to_date)) %></td>
-	<td><%= number_to_human_size(d.traffic(:in,:night,@from_date,@to_date)) %></td>
-	<td><%= number_to_human_size(d.traffic(:in,:day,@from_date,@to_date) + d.traffic(:in,:night,@from_date,@to_date)) %></td>
-	<td><%= number_to_human_size(d.traffic(:out,:day,@from_date,@to_date)) %></td>
-	<td><%= number_to_human_size(d.traffic(:out,:night,@from_date,@to_date)) %></td>
-	<td><%= number_to_human_size(d.traffic(:out,:day,@from_date,@to_date) + d.traffic(:out,:night,@from_date,@to_date)) %></td>
+	<td><%= number_to_human_size(d.total_traffic(:in,:day,@from_date,@to_date)) %></td>
+	<td><%= number_to_human_size(d.total_traffic(:in,:night,@from_date,@to_date)) %></td>
+	<td><%= number_to_human_size(d.total_traffic(:in,:day,@from_date,@to_date) + d.total_traffic(:in,:night,@from_date,@to_date)) %></td>
+	<td><%= number_to_human_size(d.total_traffic(:out,:day,@from_date,@to_date)) %></td>
+	<td><%= number_to_human_size(d.total_traffic(:out,:night,@from_date,@to_date)) %></td>
+	<td><%= number_to_human_size(d.total_traffic(:out,:day,@from_date,@to_date) + d.total_traffic(:out,:night,@from_date,@to_date)) %></td>
   </tr>
 <%
    end
