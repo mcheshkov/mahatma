@@ -10,22 +10,5 @@
 	<td>Outbound, night</td>
 	<td>Outbound, total</td>
   </tr>
-  <tr>
-    <td><%= @department.name %></td>
-  </tr>
-<%
-   @department.ips.each do |ip|
-%>
-  <tr>
-	<td><%= ip.ip_as_string %></td>
-	<td><%= number_to_human_size(ip.traffic(:in,:day,@from_date,@to_date)) %></td>
-	<td><%= number_to_human_size(ip.traffic(:in,:night,@from_date,@to_date)) %></td>
-	<td><%= number_to_human_size(ip.traffic(:in,:day,@from_date,@to_date) + ip.traffic(:in,:night,@from_date,@to_date)) %></td>
-	<td><%= number_to_human_size(ip.traffic(:out,:day,@from_date,@to_date)) %></td>
-	<td><%= number_to_human_size(ip.traffic(:out,:night,@from_date,@to_date)) %></td>
-	<td><%= number_to_human_size(ip.traffic(:out,:day,@from_date,@to_date) + ip.traffic(:out,:night,@from_date,@to_date)) %></td>
-  </tr>
-<%
-   end
-%>
+  <%= render :partial => "department_stats", :locals =>{:department => @department} %>
 </table>
