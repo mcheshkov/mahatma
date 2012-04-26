@@ -1,0 +1,23 @@
+<h1>Listing ips</h1>
+
+<table>
+  <tr>
+    <th>Department</th>
+    <th>IPs</th>
+  </tr>
+
+<% @deps.each do |d| %>
+  <tr>
+    <td><%= d.name %></td>
+    <td>
+	  <% d.ips.each do |ip| %>
+	      <%= ip.ip_as_string %>
+	  <% end%>
+	</td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New IP', new_ip_path %>

@@ -12,7 +12,9 @@ Mahatma::Application.routes.draw do
 
   resources :departments
 
-  resources :ips
+  resources :ips do
+    get 'by_department', :on => :collection
+  end
 
   resources :persons
 

@@ -10,6 +10,15 @@ class IpsController < ApplicationController
     end
   end
 
+  def by_department
+    @deps = Department.includes(:ips)
+
+    respond_to do |format|
+      format.html # by_department.html.erb
+#      format.json { render json: @deps }
+    end
+  end
+
   # GET /ips/1
   # GET /ips/1.json
   def show
