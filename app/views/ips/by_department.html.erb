@@ -3,16 +3,14 @@
 <table>
   <tr>
     <th>Department</th>
-    <th>IPs</th>
+    <th>IPs (with child's)</th>
   </tr>
 
 <% @deps.each do |d| %>
   <tr>
     <td><%= d.name %></td>
     <td>
-	  <% d.ips.each do |ip| %>
-	      <%= ip.ip_as_string %>
-	  <% end%>
+	  <%= render :partial => "department_ips", :locals =>{:department => d} %>
 	</td>
   </tr>
 <% end %>
