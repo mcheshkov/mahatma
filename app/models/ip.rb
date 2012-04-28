@@ -9,11 +9,25 @@ class Ip < ActiveRecord::Base
   has_many :outbounds, :foreign_key => "ip"
 
   def ip_as_string
-    ip2str(ip)
+    return if !ip
+    "%d.%d.%d.%d" % octets
   end
 
   def ip_as_string=(str)
     self.ip = str2ip(str) if new_record?
+  end
+
+  def octets
+    return if !ip
+    _ip = ip
+    o4=_ip % (1 << 8)
+    _ip>>=8
+    o3=_ip % (1 << 8)
+    _ip>>=8
+    o2=_ip % (1 << 8)
+    _ip>>=8
+    o1=_ip % (1 << 8)
+    [o1,o2,o3,o4]
   end
 
   def traffic(dir,type,from_date,to_date)
@@ -39,18 +53,6 @@ class Ip < ActiveRecord::Base
     res
   end
 
-  def ip2str(ip)
-    return if !ip
-    o4=ip % (1 << 8)
-    ip>>=8
-    o3=ip % (1 << 8)
-    ip>>=8
-    o2=ip % (1 << 8)
-    ip>>=8
-    o1=ip % (1 << 8)
-    
-    o1.to_s + '.' + o2.to_s + '.' + o3.to_s + '.' + o4.to_s
-  end
   def str2ip(str)
     return if !str
     ip = 0

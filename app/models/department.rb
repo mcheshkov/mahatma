@@ -22,6 +22,12 @@ class Department < ActiveRecord::Base
     res
   end
 
+  def all_ips
+    res = ips
+    children.each {|c| res += c.all_ips}
+    res
+  end
+
   private
   def get_all_traffic(from_date,to_date)
     res = {}
