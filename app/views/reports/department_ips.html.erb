@@ -29,8 +29,16 @@
 	</td>
 	<td>
 	  <% d.all_ips.find_all{|ip| ip.octets[2] == s}.each do |ip|%>
-	  <%= ip.ip_as_string %>
-	  <% end %>
+	  <%
+		 t =  ip.traffic(:in, :day,  DateTime.now.to_date<<6,DateTime.now.to_date)
+		 t += ip.traffic(:in, :night,DateTime.now.to_date<<6,DateTime.now.to_date)
+		 t += ip.traffic(:out,:day,  DateTime.now.to_date<<6,DateTime.now.to_date)
+		 t += ip.traffic(:out,:night,DateTime.now.to_date<<6,DateTime.now.to_date)
+		 ip_class = "ip"
+		 ip_class += " stale" if t == 0
+	  %>
+	  <span class="<%= ip_class%>"><%= ip.ip_as_string %></span>
+	  <% end #ip%>
 	</td>
   </tr>
 <%
