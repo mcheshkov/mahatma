@@ -1,6 +1,0 @@
-<% department.ips.each do |ip| %>
-  <%= ip.ip_as_string %>
-<% end%>
-<% department.children.each do |child| %>
-  <%= render :partial => "department_ips", :locals =>{:department => child} %>
-<% end%>

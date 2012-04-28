@@ -1,0 +1,44 @@
+<h1>Reports#department_ips</h1>
+<p>Find me in app/views/reports/department_ips.html.erb</p>
+
+<h1>IP usage</h1>
+
+<table>
+  <tr>
+    <th>Department</th>
+    <th>Subnet</th>
+	<th>IPs</th>
+  </tr>
+
+<%
+@deps.each do |d|
+   subnets = Set.new
+   d.all_ips.each{|ip| subnets.add(ip.octets[2]) }
+   first = true
+   subnets.each do |s|
+   %>
+  <tr>
+<% if first %>
+    <td rowspan='<%=subnets.size -%>'> <%= d.name%><br><%= d.all_ips.size%> adresses</td>
+	<%
+	   first = false
+	   end
+	%>
+    <td>
+	  <%=s %><br><%=d.all_ips.find_all{|ip| ip.octets[2] == s}.size %> adresses
+	</td>
+	<td>
+	  <% d.all_ips.find_all{|ip| ip.octets[2] == s}.each do |ip|%>
+	  <%= ip.ip_as_string %>
+	  <% end %>
+	</td>
+  </tr>
+<%
+   end #subnets
+end #deps
+%>
+</table>
+
+<br />
+
+<%= link_to 'New IP', new_ip_path %>

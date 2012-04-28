@@ -8,13 +8,13 @@ Mahatma::Application.routes.draw do
   match "stats/department/:department_id(/:from_date/:to_date)" => "stats#show_department"
   match "stats(/:from_date/:to_date)" => "stats#show"
 
+  get "reports/department_ips"
+
   resources :users
 
   resources :departments
 
-  resources :ips do
-    get 'by_department', :on => :collection
-  end
+  resources :ips
 
   resources :persons
 
