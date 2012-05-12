@@ -31,8 +31,9 @@ class Ip < ActiveRecord::Base
   end
 
   def traffic(dir,type,from_date,to_date)
-    @@all_traffic ||= get_all_traffic(from_date,to_date)
-    @@all_traffic[ [id,dir,type] ] || 0
+    @@all_traffic ||= {}
+    @@all_traffic[ [from_date,to_date] ] ||= get_all_traffic(from_date,to_date)
+    @@all_traffic[ [from_date,to_date] ][ [id,dir,type] ] || 0
   end
 
   private

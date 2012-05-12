@@ -10,8 +10,9 @@ class Department < ActiveRecord::Base
   has_many :outbounds, :through => :ips
 
   def traffic(dir,type,from_date,to_date)
-    @@all_traffic ||= get_all_traffic(from_date,to_date)
-    @@all_traffic[ [id,dir,type] ] || 0
+    @@all_traffic ||={}
+    @@all_traffic[ [from_date,to_date] ] ||= get_all_traffic(from_date,to_date)
+    @@all_traffic[ [from_date,to_date] ] [ [id,dir,type] ] || 0
   end
 
   def total_traffic(dir,type,from_date,to_date)
