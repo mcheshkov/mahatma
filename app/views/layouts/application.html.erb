@@ -11,6 +11,21 @@
   <div id="notice"><%= flash[:notice] %></div>
 <% end -%>
 
+<% if session[:user_id] %>
+<div>
+  Logged in as <%= User.find_by_id(session[:user_id]).name %>
+  <%= link_to 'Logout', logout_path%>
+</div>
+
+<div>
+  <%= link_to 'Departments', departments_path %>
+  <%= link_to 'Persons', persons_path %>
+  <%= link_to 'Buildings', buildings_path %>
+  <%= link_to 'IPs', ips_path %>
+  <%= link_to 'Stats', stats_path %>
+</div>
+<% end %>
+
 <%= yield %>
 
 </body>
