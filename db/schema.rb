@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120305083938) do
+ActiveRecord::Schema.define(:version => 20120716072559) do
 
   create_table "buildings", :force => true do |t|
     t.string   "name",       :limit => 30, :default => "", :null => false
@@ -26,6 +26,8 @@ ActiveRecord::Schema.define(:version => 20120305083938) do
     t.integer  "parent_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "lft"
+    t.integer  "rgt"
   end
 
   create_table "inbound", :force => true do |t|
